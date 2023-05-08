@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  schedule:
+    - cron:  '0 12 1 * *'
+
+jobs:
+  update:
+    name: Update dictionary data
+
+    runs-on: ubuntu-latest
+    env:
+      USER_NAME: ${{ github.repository_owner }}
+      USER_EMAIL: ${{ secrets.USER_EMAIL }}
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install
+      run: |
+        sudo apt-get -yqq update
+        sudo apt-get -yqq install hunspell-tools
+    - name: Script
+      run: |
+        export LC_ALL=en_US.UTF-8
+        bash update.sh
+        git config --global user.email "$USER_EMAIL"
+        git config --global user.name "$USER_NAME"
+        git config --global http.postBuffer $((2 * 1024 ** 3))
+        git commit -am "Updated dictionary data $(date -u +%F)."
+        git push

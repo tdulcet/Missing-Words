@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="author" content="Teal Dulcet">
+	<title>🔠 Missing words in the Mozilla English dictionary</title>
+	<style>
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		table {
+			border-collapse: collapse;
+		}
+
+		td,
+		th {
+			border: 2px solid black;
+		}
+	</style>
+	<script defer src="script.js" type="module"></script>
+</head>
+
+<body>
+	<h1>🔠 Missing words in the Mozilla English dictionary</h1>
+	<p>Copyright © 2022 Teal Dulcet</p>
+	<p>Missing words in the Mozilla (Firefox and Thunderbird) American English (en-US) language spellchecking
+		dictionary. The code for this page and the scripts to generate the data are 100% open source and <a
+			href="https://github.com/tdulcet/Missing-Words">on GitHub</a>.</p>
+	<p>The <a target="_blank" href="https://firefox-source-docs.mozilla.org/extensions/spellcheck/">Mozilla English
+			dictionary</a> is based on the <a target="_blank" href="http://wordlist.aspell.net/">SCOWL dictionary</a>,
+		which is also used by Chromium, LibreOffice and many other open source projects, but unfortunately, it is
+		missing many common words found in other proprietary dictionaries. I created this page in an effort to help
+		Mozilla developers and other Mozillians systematically find those missing words that should be included in the
+		Mozilla and other spellchecking dictionaries.</p>
+	<p>🙋 If you see one or more words on this page that you believe should be included in the Mozilla en-US dictionary,
+		please consider adding a comment to <a target="_blank"
+			href="https://bugzilla.mozilla.org/show_bug.cgi?id=enus-dictionary">Bug 1811451</a> with the word(s) and
+		Wiktionary and/or Wikipedia links, as well as a link to another online dictionary (e.g. <a target="_blank"
+			href="https://www.merriam-webster.com/">Merriam-Webster</a> or <a target="_blank"
+			href="https://www.oxfordlearnersdictionaries.com/us/definition/american_english/">Oxford</a>) if possible.
+		Please feel free to also <a href="https://github.com/tdulcet/Missing-Words/issues">create an issue</a> if there
+		are any improvements to this website or the data that would help you find more missing words.</p>
+	<p>Some of the words below may be offensive or otherwise unsuitable for inclusion in the Mozilla dictionary, but
+		there are still <em>a lot</em> of good candidates to consider…</p>
+	<h2>Options</h2>
+	<fieldset>
+		<legend>What types of words to show?</legend>
+
+		<div>
+			<label>
+				<input type="radio" name="words" value="1">
+				Lowercase letters only (e.g. no proper nouns)
+			</label>
+		</div>
+
+		<div>
+			<label>
+				<input type="radio" name="words" value="2">
+				Alphabetic with one lowercase letter (e.g. no acronyms)
+			</label>
+		</div>
+
+		<div>
+			<label>
+				<input type="radio" name="words" value="3" checked>
+				Alphabetic (e.g. no words with numbers or symbols)
+			</label>
+		</div>
+
+		<div>
+			<label>
+				<input type="radio" name="words" value="4">
+				All words
+			</label>
+		</div>
+
+		<div>* The hyphen and apostrophe are always allowed.</div>
+	</fieldset>
+	<p>
+		<label>
+			<input type="checkbox" id="wiki" checked>
+			Only show words with one or more Wikipedia pages
+		</label>
+	</p>
+	<p>
+		<label>
+			Maximum number of words to show:
+			<input type="number" id="max" value="50000" min="1">
+		</label>
+	</p>
+	<p>ℹ️ This page may briefly slowdown after changing these options and it may take up to a minute to fully load,
+		especially when showing a large number of words.</p>
+	<h3>Wiktionary</h3>
+	<p>Uses the <a target="_blank" href="https://en.wiktionary.org/">English Wiktionary</a> dictionary data. It is
+		created from the <a target="_blank" href="https://dumps.wikimedia.org/enwiktionary/latest/">Wiktionary
+			dumps</a>, which is converted to a machine-readable format by <a target="_blank"
+			href="https://kaikki.org/dictionary/">kaikki.org</a> using their open source <a target="_blank"
+			href="https://github.com/tatuylonen/wiktextract">Wiktextract</a> tool. See the <a target="_blank"
+			href="http://www.lrec-conf.org/proceedings/lrec2022/pdf/2022.lrec-1.140.pdf">Wiktextract paper</a> for more
+		information.</p>
+	<p>I wrote a script to convert this raw <a target="_blank" href="https://jsonlines.org/">JSON Lines</a> data into a
+		simple <a target="_blank" href="https://en.wikipedia.org/wiki/Tab-separated_values">TSV</a> file and then remove
+		all the words already in the Mozilla dictionary. Words and forms with any whitespace characters are excluded, as
+		well as all words from several <a target="_blank" href="https://en.wikipedia.org/wiki/Part_of_speech">parts of
+			speech</a> categories, including names and phrases. British, Canadian and Australian English
+		spellings/variants were also excluded.</p>
+	<p>This data is automatically updated monthly, to reflect changes made to the Mozilla dictionary and to Wiktionary.
+		If users notice any errors in the data, they should correct them directly on the Wiktionary website and it
+		will automatically be included on this page in the next monthly update.</p>
+	<p>Wiktionary is licensed under both the <a target="_blank"
+			href="https://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported
+			License</a> (CC BY-SA 3.0) and the <a target="_blank" href="https://gnu.org/licenses/gfdl.html">GNU Free
+			Documentation License</a> (GFDL).</p>
+	<div id="wiktionary"></div>
+	<template id="awiktionary">
+		<p><strong>Total</strong>: <span id="total"></span></p>
+		<table id="table">
+			<tr>
+				<th>Word</th>
+				<th>Number of meanings</th>
+				<th>Forms of the word</th>
+				<th>Parts of speech (POS)</th>
+				<th>Wikipedia pages</th>
+			</tr>
+		</table>
+	</template>
+	<p>⬇️ Download the full TSV file: <a href="wiktionary/Wiktionary%20words.tsv">Wiktionary words.tsv</a></p>
+	<h3>Other dictionaries</h3>
+	<p>Other dictionaries for consideration ordered from high to low quality:</p>
+	<ol>
+		<li><strong>Ispell</strong> small and medium American English dictionaries - 13,997 words, see <a
+				href="https://bugzilla.mozilla.org/show_bug.cgi?id=1811451#c2">Bug 1811451 comment 2</a>.</li>
+		<li><strong>LibreOffice</strong> Technical dictionary - 269 words, see <a
+				href="https://bugzilla.mozilla.org/show_bug.cgi?id=1808872#c30">Bug 1808872 comment 30</a>.</li>
+		<li><strong>Chromium</strong>/Chrome en-US dictionary - 412 words, see <a
+				href="https://bugzilla.mozilla.org/show_bug.cgi?id=1808872#c29">Bug 1808872 comment 29</a>.</li>
+		<li><strong>Google Ngram</strong> American English 1-grams data - top 100,000 words, see <a
+				href="https://bugzilla.mozilla.org/show_bug.cgi?id=1808872#c28">Bug 1808872 comment 28</a>.</li>
+	</ol>
+	<p>These dictionaries are changed infrequently, so the resulting lists do not need to be updated automatically, but
+		they therefore might still include some words that have been already added to the Mozilla dictionary.</p>
+	<p>🙋 Please let me know if you know of any other free and open source high quality American English dictionaries or
+		wordlists.</p>
+</body>
+
+</html>
