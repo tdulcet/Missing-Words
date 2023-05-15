@@ -17,7 +17,7 @@
 # wget https://kaikki.org/dictionary/English/kaikki.org-dictionary-English.json
 # time python3 -X dev update.py kaikki.org-dictionary-English.json wiktionary.tsv
 
-# join -t $'\t' <(comm -13 <(sort -u mozilla.txt) <(cut -f 1 wiktionary.tsv | sort)) <(sort -t $'\t' -k 1,1 wiktionary.tsv) | sort -t $'\t' -k 2,2nr > 'Wiktionary words.tsv'
+# join -t $'\t' <(comm -13 <(tr -cd '[:alnum:]\n' < mozilla.txt | tr '[:upper:]' '[:lower:]' | sort -u) <(cut -f 1 wiktionary.tsv | sort)) <(sort -t $'\t' -k 1,1 wiktionary.tsv) | sort -t $'\t' -k 3,3nr > 'Wiktionary words.tsv'
 
 import csv
 import io
@@ -34,11 +34,12 @@ if len(sys.argv) != 3:
 
 # Allowed Parts of speech
 parts_of_speech = frozenset(["noun", "verb", "adj", "adv", "prep_phrase",
-							"abbrev", "pron", "prep", "num", "conj", "det", "particle", "postp", "intj"])
+							 "abbrev", "pron", "prep", "num", "conj", "det", "particle", "postp", "intj"])
 
 # Allowed words and forms
 # pattern = re.compile(r"^[\w'-]+$")
 pattern = re.compile(r"^[\S]+$")
+apattern = re.compile(r"[\W_]+")
 
 
 def output(temp):
@@ -50,7 +51,8 @@ def output(temp):
 
 n = 10
 
-words = set()
+awords = set()
+words = {}
 senses = {}
 poss = {}
 wikis = {}
@@ -77,6 +79,7 @@ with open(sys.argv[1], encoding="utf-8") as f:
 		keys.update(data.keys())
 
 		word = data["word"]
+		aword = apattern.sub('', word).lower()
 		pos = data["pos"]
 		asenses = data["senses"]
 
@@ -92,7 +95,7 @@ with open(sys.argv[1], encoding="utf-8") as f:
 				categories.update([category["name"]])
 				parents.update(category["parents"])
 
-		if not pattern.match(word):
+		if not pattern.match(word) or not pattern.match(aword):
 			continue
 
 		if pos not in parts_of_speech:
@@ -109,16 +112,18 @@ with open(sys.argv[1], encoding="utf-8") as f:
 			# print(f"Skiping: {word}, {pos}")
 			continue
 
-		if word not in words:
-			senses[word] = 0
-			poss[word] = set()
-			wikis[word] = set()
-			forms[word] = set()
-		words.add(word)
-		senses[word] += sum(1 for s in asenses if "glosses" in s)
-		poss[word].add(pos)
+		if aword not in awords:
+			words[aword] = set()
+			senses[aword] = 0
+			poss[aword] = set()
+			wikis[aword] = set()
+			forms[aword] = set()
+		awords.add(aword)
+		words[aword].add(word)
+		senses[aword] += sum(1 for s in asenses if "glosses" in s)
+		poss[aword].add(pos)
 		if "wikipedia" in data:
-			wikis[word].update(data["wikipedia"])
+			wikis[aword].update(data["wikipedia"])
 
 		if "forms" in data:
 			for aform in data["forms"]:
@@ -135,24 +140,26 @@ with open(sys.argv[1], encoding="utf-8") as f:
 					form = temp
 				if ("tags" not in aform or {"inflection-template", "table-tags", "class", "British", "Canada",
 											"Australian"}.isdisjoint(aform["tags"])) and form and form != "-" and pattern.match(form):
-					# if form not in words:
-						# poss[form] = set()
-						# wikis[form] = set()
-					# words.add(form)
-					# poss[form].add(pos)
+					# aaform = apattern.sub('', form).lower()
+					# if aaform not in awords:
+						# poss[aaform] = set()
+						# wikis[aaform] = set()
+					# awords.add(aaform)
+					# words[aaform].add(form)
+					# poss[aaform].add(pos)
 					# if "wikipedia" in data:
-						# wikis[form].update(data["wikipedia"])
+						# wikis[aaform].update(data["wikipedia"])
 
-					forms[word].add(form)
+					forms[aword].add(form)
 
 end = time.perf_counter()
-print(f"Total number of Words: {len(words):n}, Runtime: {timedelta(seconds=end - start)}")
+print(f"Total number of Keys: {len(awords):n}, Total number of Words: {sum(len(word) for word in words.values()):n}, Runtime: {timedelta(seconds=end - start)}")
 
 with open(sys.argv[2], "w", newline="", encoding="utf-8") as csvfile:
 	writer = csv.writer(csvfile, delimiter="\t", lineterminator="\n", quotechar="", quoting=csv.QUOTE_NONE)
-	# writer.writerow(["word", "senses", "form(s)", "part(s) of speech", "Wikipedia page(s)"])
-	for word in sorted(words):
-		writer.writerow([word, senses[word], output(sorted(forms[word])) if forms[word] else "", output(sorted(poss[word])), output(sorted(wikis[word])) if word in wikis else ""])
+	# writer.writerow(["key", "word(s)", "senses", "form(s)", "part(s) of speech", "Wikipedia page(s)"])
+	for aword in sorted(awords):
+		writer.writerow([aword, output(sorted(words[aword])), senses[aword], output(sorted(forms[aword])) if forms[aword] else "", output(sorted(poss[aword])), output(sorted(wikis[aword])) if aword in wikis else ""])
 
 print("\nCounts\n")
 print("Keys:", len(keys))

@@ -83,17 +83,12 @@ addEventListener("load", (event) => {
 			const data = text.split("\n").filter((r) => r.length).map((r) => r.split("\t"));
 			// console.log(data);
 
-			/* const words = new Set();
-
-			for (const [word] of data) {
-				words.add(word);
-			} */
-
-			for (const [word, num, forms, pos, wiki] of data) {
+			for (const [key, words, num, forms, pos, wiki] of data) {
 				const row = table.insertRow();
 
 				let cell = row.insertCell();
-				cell.innerHTML = `<a href="${WIKTIONARY}${word}" target="_blank">${word}</a>`;
+				const awords = words.split(",");
+				cell.innerHTML = formatter2.format(awords.map((x) => `<a href="${WIKTIONARY}${x}" target="_blank">${x}</a>`));
 
 				cell = row.insertCell();
 				cell.textContent = numberFormat.format(parseInt(num, 10));
@@ -109,10 +104,10 @@ addEventListener("load", (event) => {
 				const awiki = wiki.split(/("[^"]+"|[^",]*)(?:,|$)/u).filter((x, i) => i % 2 !== 0).map((x) => x.startsWith('"') && x.endsWith('"') ? x.slice(1, -1) : x);
 				cell.innerHTML = formatter1.format(awiki.map((x) => encodeXML(x)).map((x) => `<a href="${WIKIPEDIA}${x}" target="_blank">${x}</a>`));
 
-				const test1 = /^[\p{Ll}'-]+$/u.test(word);
-				const test2 = /^[\p{Alpha}'-]+$/u.test(word);
-				const test3 = /\p{Ll}/u.test(word);
-				const test4 = /\p{Alpha}/u.test(word);
+				const test1 = awords.some((word) => /^[\p{Ll}'-]+$/u.test(word));
+				const test2 = awords.some((word) => /^[\p{Alpha}'-]+$/u.test(word));
+				const test3 = awords.some((word) => /\p{Ll}/u.test(word));
+				const test4 = awords.some((word) => /\p{Alpha}/u.test(word));
 
 				if (test1 && test3) {
 					words1.add(row);

@@ -105,7 +105,9 @@
 		all the words already in the Mozilla dictionary. Words and forms with any whitespace characters are excluded, as
 		well as all words from several <a target="_blank" href="https://en.wikipedia.org/wiki/Part_of_speech">parts of
 			speech</a> categories, including names and phrases. British, Canadian and Australian English
-		spellings/variants were also excluded.</p>
+		spellings/variants were also excluded, as well as words with several tags, including obsolete and misspelling.
+		Any words that are identical after they are normalized by removing any non-alphanumeric characters and
+		converting them to lowercase are put on the same row.</p>
 	<p>This data is automatically updated monthly, to reflect changes made to the Mozilla dictionary and to Wiktionary.
 		If users notice any errors in the data, they should correct them directly on the Wiktionary website and it
 		will automatically be included on this page in the next monthly update.</p>
@@ -118,7 +120,7 @@
 		<p><strong>Total</strong>: <span id="total"></span></p>
 		<table id="table">
 			<tr>
-				<th>Word</th>
+				<th>Words</th>
 				<th>Number of meanings</th>
 				<th>Forms of the word</th>
 				<th>Parts of speech (POS)</th>
