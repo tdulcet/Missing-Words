@@ -54,15 +54,11 @@ function settings() {
 	document.getElementById("total").textContent = `${numberFormat.format(count)} / ${numberFormat.format(words4.size)}${count > max ? ` (Only the first ${numberFormat.format(max)} shown)` : ""}`;
 }
 
-function encodeXML(text) {
-	const map = {
-		"&": "&amp;",
-		"<": "&lt;",
-		">": "&gt;",
-		'"': "&quot;",
-		"'": "&apos;"
-	};
-	return text.replace(/[&<>"']/gu, (m) => map[m]);
+function createlink(link) {
+	const a = document.createElement("a");
+	a.href = link;
+	a.target = "_blank";
+	return a;
 }
 
 addEventListener("load", (event) => {
@@ -88,13 +84,24 @@ addEventListener("load", (event) => {
 
 				let cell = row.insertCell();
 				const awords = words.split(",");
-				cell.innerHTML = formatter2.format(awords.map((x) => `<a href="${WIKTIONARY}${x}" target="_blank">${x}</a>`));
+				cell.innerHTML = formatter2.format(awords.map((x) => {
+					const link = createlink(`${WIKTIONARY}${x}`);
+					link.textContent = x;
+					return link.outerHTML;
+				}));
 
 				cell = row.insertCell();
 				cell.textContent = numberFormat.format(parseInt(num, 10));
 
 				cell = row.insertCell();
-				// cell.innerHTML = formatter1.format(forms.split(",").map((x) => words.has(x) ? `<a href="${WIKTIONARY}${x}" target="_blank">${x}</a>` : x));
+				/* cell.innerHTML = formatter1.format(forms.split(",").map((x) => {
+					if (words.has(x)) {
+						const link = createlink(`${WIKTIONARY}${x}`);
+						link.textContent = x;
+						return link.outerHTML;
+					}
+					return x;
+				})); */
 				cell.textContent = formatter1.format(forms.split(","));
 
 				cell = row.insertCell();
@@ -102,7 +109,11 @@ addEventListener("load", (event) => {
 
 				cell = row.insertCell();
 				const awiki = wiki.split(/("[^"]+"|[^",]*)(?:,|$)/u).filter((x, i) => i % 2 !== 0).map((x) => x.startsWith('"') && x.endsWith('"') ? x.slice(1, -1) : x);
-				cell.innerHTML = formatter1.format(awiki.map((x) => encodeXML(x)).map((x) => `<a href="${WIKIPEDIA}${x}" target="_blank">${x}</a>`));
+				cell.innerHTML = formatter1.format(awiki.map((x) => {
+					const link = createlink(`${WIKIPEDIA}${x}`);
+					link.textContent = x;
+					return link.outerHTML;
+				}));
 
 				const test1 = awords.some((word) => /^[\p{Ll}'-]+$/u.test(word));
 				const test2 = awords.some((word) => /^[\p{Alpha}'-]+$/u.test(word));
