@@ -86,6 +86,23 @@
 	</p>
 	<p>
 		<label>
+			Sort by:
+			<select id="sort">
+				<option value="-1" selected>Default</option>
+				<option value="0">Words</option>
+				<option value="1">Number of meanings</option>
+				<option value="2">Forms of the word</option>
+				<option value="3">Parts of speech (POS)</option>
+				<option value="4">Wikipedia pages</option>
+			</select>
+		</label>
+		<label>
+			<input type="checkbox" id="direction" checked>
+			Ascending
+		</label>
+	</p>
+	<p>
+		<label>
 			Maximum number of words to show:
 			<input type="number" id="max" value="50000" min="1">
 		</label>
@@ -117,6 +134,7 @@
 			Documentation License</a> (GFDL).</p>
 	<div id="wiktionary"></div>
 	<template id="awiktionary">
+		<p><strong>Load time</strong>: <span id="load"></span>, <strong>Updated</strong>: <span id="update"></span></p>
 		<p><strong>Total</strong>: <span id="total"></span></p>
 		<table id="table">
 			<tr>
