@@ -12,7 +12,7 @@ if [[ $# -ne 0 ]]; then
 fi
 
 # wget arguments
-args=( -nv -T 30 -c --content-disposition )
+args=( -nv -T 30 --retry-connrefused --retry-on-host-error -c --content-disposition )
 
 # headtail <file>
 headtail() {
