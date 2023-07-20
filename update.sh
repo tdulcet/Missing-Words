@@ -12,7 +12,7 @@ if [[ $# -ne 0 ]]; then
 fi
 
 # wget arguments
-args=( -nv -T 30 --retry-connrefused --retry-on-host-error -c --content-disposition )
+args=( -nv -T 30 --retry-connrefused --retry-on-host-error -c --content-disposition --compression auto )
 
 # headtail <file>
 headtail() {
@@ -24,8 +24,7 @@ headtail() {
 
 TEMP=temp.txt
 
-wget "${args[@]}" https://hg.mozilla.org/mozilla-central/raw-file/tip/extensions/spellcheck/locales/en-US/hunspell/en-US.aff
-wget "${args[@]}" https://hg.mozilla.org/mozilla-central/raw-file/tip/extensions/spellcheck/locales/en-US/hunspell/en-US.dic
+wget "${args[@]}" https://hg.mozilla.org/mozilla-central/raw-file/tip/extensions/spellcheck/locales/en-US/hunspell/en-US.{aff,dic}
 
 unmunch en-US.dic en-US.aff > "$TEMP"
 

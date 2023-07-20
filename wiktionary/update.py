@@ -8,13 +8,12 @@
 # sudo apt update
 # sudo apt install hunspell-tools
 
-# wget https://hg.mozilla.org/mozilla-central/raw-file/tip/extensions/spellcheck/locales/en-US/hunspell/en-US.aff
-# wget https://hg.mozilla.org/mozilla-central/raw-file/tip/extensions/spellcheck/locales/en-US/hunspell/en-US.dic
+# wget --compression auto https://hg.mozilla.org/mozilla-central/raw-file/tip/extensions/spellcheck/locales/en-US/hunspell/en-US.{aff,dic}
 # unmunch en-US.dic en-US.aff > temp.txt
 # # Convert 'mozilla.txt' to UTF-8
 # iconv -f ISO-8859-1 -t UTF-8 -o mozilla.txt temp.txt
 
-# wget https://kaikki.org/dictionary/English/kaikki.org-dictionary-English.json
+# wget --compression auto https://kaikki.org/dictionary/English/kaikki.org-dictionary-English.json
 # time python3 -X dev update.py kaikki.org-dictionary-English.json wiktionary.tsv
 
 # join -t $'\t' <(comm -13 <(tr -cd '[:alnum:]\n' < mozilla.txt | tr '[:upper:]' '[:lower:]' | sort -u) <(cut -f 1 wiktionary.tsv | sort)) <(sort -t $'\t' -k 1,1 wiktionary.tsv) | sort -t $'\t' -k 3,3nr > 'Wiktionary words.tsv'

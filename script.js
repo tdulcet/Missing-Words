@@ -5,6 +5,9 @@ const WIKIPEDIA = "https://en.wikipedia.org/wiki/";
 
 const wiktionary = [];
 
+const dateTimeFormat1 = new Intl.DateTimeFormat([], { weekday: "long", year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "numeric", second: "numeric" });
+const dateTimeFormat2 = new Intl.DateTimeFormat([], { year: "numeric", month: "long", day: "numeric" });
+
 const numberFormat = new Intl.NumberFormat();
 
 const numberFormat1 = new Intl.NumberFormat([], { style: "unit", unit: "second", unitDisplay: "long" });
@@ -35,13 +38,13 @@ function settings() {
 	const start = performance.now();
 	const table = document.getElementById("table");
 
-	const words = parseInt(awords.find((r) => r.checked).value, 10);
+	const words = Number.parseInt(awords.find((r) => r.checked).value, 10);
 	const wiki = awiki.checked;
-	const sort = parseInt(asort.value, 10);
+	const sort = Number.parseInt(asort.value, 10);
 	const direction = adirection.checked;
 	const max = amax.valueAsNumber;
 
-	const rows = Array.from(wiktionary);
+	let rows = wiktionary;
 
 	if (sort >= 0) {
 		let compare = null;
@@ -58,7 +61,8 @@ function settings() {
 				break;
 		}
 
-		rows.sort(compare);
+		// rows = wiktionary.toSorted(compare);
+		rows = Array.from(wiktionary).sort(compare);
 	}
 
 	console.timeLog(label);
@@ -152,7 +156,7 @@ addEventListener("load", async (event) => {
 				}));
 
 				cell = row.insertCell();
-				const anum = parseInt(num, 10);
+				const anum = Number.parseInt(num, 10);
 				cell.textContent = numberFormat.format(anum);
 
 				cell = row.insertCell();
@@ -180,6 +184,14 @@ addEventListener("load", async (event) => {
 				}));
 
 				wiktionary.push([awords, anum, aforms, apos, awiki, row]);
+			}
+
+			const modified = response.headers.get("Last-Modified");
+			if (modified) {
+				const amodified = clone.getElementById("modified");
+				const date = new Date(modified);
+				amodified.title = dateTimeFormat1.format(date);
+				amodified.textContent = dateTimeFormat2.format(date);
 			}
 		}
 
