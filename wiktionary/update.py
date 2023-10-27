@@ -78,7 +78,7 @@ with open(sys.argv[1], encoding="utf-8") as f:
 		keys.update(data.keys())
 
 		word = data["word"]
-		aword = apattern.sub('', word).lower()
+		aword = apattern.sub("", word).casefold()
 		pos = data["pos"]
 		asenses = data["senses"]
 

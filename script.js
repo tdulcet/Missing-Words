@@ -86,7 +86,7 @@ function settings() {
 
 	let count = 0;
 
-	for (const [awords, anum, aforms, apos, awiki, row] of rows) {
+	for (const [awords, /* anum */, /* aforms */, /* apos */, awiki, row] of rows) {
 		const show = test(awords) && (!wiki || awiki.length);
 		row.style.display = show && count < max ? "" : "none";
 		if (sort >= 0) {
@@ -144,7 +144,7 @@ addEventListener("load", async (event) => {
 
 			console.timeLog(label);
 
-			for (const [key, words, num, forms, pos, wiki] of data) {
+			for (const [/* key */, words, num, forms, pos, wiki] of data) {
 				const row = table.insertRow();
 
 				let cell = row.insertCell();

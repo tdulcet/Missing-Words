@@ -26,5 +26,8 @@ jobs:
         git config --global user.email "$USER_EMAIL"
         git config --global user.name "$USER_NAME"
         git config --global http.postBuffer $((2 * 1024 ** 3))
+        if git diff --quiet; then
+            exit 0
+        fi
         git commit -am "Updated dictionary data $(date -u +%F)."
         git push
