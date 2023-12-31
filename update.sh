@@ -55,6 +55,8 @@ python3 -X dev update.py "$FILE" "$TEMP"
 headtail "$TEMP"
 
 join -t $'\t' <(comm -13 <(tr -cd '[:alnum:]\n' < ../mozilla.txt | tr '[:upper:]' '[:lower:]' | sort -u) <(cut -f 1 "$TEMP" | sort)) <(sort -t $'\t' -k 1,1 "$TEMP") | sort -t $'\t' -k 3,3nr > "$OUTPUT"
+
+sort -t $'\t' -k 3,3nr -o "$TEMP" "$TEMP"
 )
 
 (

@@ -5,6 +5,9 @@ const WIKIPEDIA = "https://en.wikipedia.org/wiki/";
 
 const wiktionary = [];
 
+let mozilla = null;
+let amozilla = null;
+
 const dateTimeFormat1 = new Intl.DateTimeFormat([], { weekday: "long", year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "numeric", second: "numeric" });
 const dateTimeFormat2 = new Intl.DateTimeFormat([], { year: "numeric", month: "long", day: "numeric" });
 
@@ -17,6 +20,8 @@ const formatter2 = new Intl.ListFormat([], { style: "narrow" });
 
 const awords = Array.from(document.getElementsByName("words"));
 const awiki = document.getElementById("wiki");
+const anormalize = document.getElementById("normalize");
+const aforms = document.getElementById("forms");
 const asort = document.getElementById("sort");
 const adirection = document.getElementById("direction");
 const amax = document.getElementById("max");
@@ -25,6 +30,8 @@ const re1 = /^[\p{Ll}'-]+$/u;
 const re2 = /^[\p{Alpha}'-]+$/u;
 const re3 = /\p{Ll}/u;
 const re4 = /\p{Alpha}/u;
+
+const apattern = /[^\p{L}\p{N}]+/gu;
 
 
 function outputtime(time) {
@@ -40,6 +47,8 @@ function settings() {
 
 	const words = Number.parseInt(awords.find((r) => r.checked).value, 10);
 	const wiki = awiki.checked;
+	const normalize = anormalize.checked;
+	const forms = aforms.checked;
 	const sort = Number.parseInt(asort.value, 10);
 	const direction = adirection.checked;
 	const max = amax.valueAsNumber;
@@ -86,8 +95,8 @@ function settings() {
 
 	let count = 0;
 
-	for (const [awords, /* anum */, /* aforms */, /* apos */, awiki, row] of rows) {
-		const show = test(awords) && (!wiki || awiki.length);
+	for (const [awords, /* anum */, aforms, /* apos */, awiki, key, aaforms, row] of rows) {
+		const show = test(awords) && (!wiki || awiki.length) && !(normalize ? amozilla.has(key) && (!forms || [...aaforms].every((form) => amozilla.has(form))) : awords.every((word) => mozilla.has(word)) && (!forms || aforms.every((form) => mozilla.has(form))));
 		row.style.display = show && count < max ? "" : "none";
 		if (sort >= 0) {
 			table.append(row);
@@ -132,7 +141,20 @@ addEventListener("load", async (event) => {
 
 	const start = performance.now();
 
-	await fetch("wiktionary/Wiktionary words.tsv").then(async (response) => {
+	const promise1 = fetch("mozilla.txt").then(async (response) => {
+		if (response.ok) {
+			const text = await response.text();
+			// console.log(text);
+
+			const data = text.split("\n").filter((r) => r.length);
+			// console.log(data);
+
+			mozilla = new Set(data);
+			amozilla = new Set(data.map((r) => r.replaceAll(apattern, "").toLowerCase()));
+		}
+	});
+
+	const promise2 = fetch("wiktionary/wiktionary.tsv").then(async (response) => {
 		if (response.ok) {
 			const text = await response.text();
 			// console.log(text);
@@ -144,7 +166,9 @@ addEventListener("load", async (event) => {
 
 			console.timeLog(label);
 
-			for (const [/* key */, words, num, forms, pos, wiki] of data) {
+			await promise1;
+
+			for (const [key, words, num, forms, pos, wiki] of data) {
 				const row = table.insertRow();
 
 				let cell = row.insertCell();
@@ -152,6 +176,11 @@ addEventListener("load", async (event) => {
 				cell.innerHTML = formatter2.format(awords.map((x) => {
 					const link = createlink(`${WIKTIONARY}${x}`);
 					link.textContent = x;
+					if (mozilla.has(x)) {
+						const s = document.createElement("s");
+						s.append(link);
+						return s.outerHTML;
+					}
 					return link.outerHTML;
 				}));
 
@@ -160,16 +189,16 @@ addEventListener("load", async (event) => {
 				cell.textContent = numberFormat.format(anum);
 
 				cell = row.insertCell();
-				const aforms = forms.split(",");
-				/* cell.innerHTML = formatter1.format(forms.split(",").map((x) => {
-					if (words.has(x)) {
-						const link = createlink(`${WIKTIONARY}${x}`);
-						link.textContent = x;
-						return link.outerHTML;
+				const aforms = forms ? forms.split(",") : [];
+				const aaforms = new Set(aforms.map((x) => x.replaceAll(apattern, "").toLowerCase()));
+				cell.innerHTML = formatter1.format(aforms.map((x) => {
+					if (mozilla.has(x)) {
+						const s = document.createElement("s");
+						s.textContent = x;
+						return s.outerHTML;
 					}
 					return x;
-				})); */
-				cell.textContent = formatter1.format(aforms);
+				}));
 
 				cell = row.insertCell();
 				const apos = pos.split(",");
@@ -183,7 +212,7 @@ addEventListener("load", async (event) => {
 					return link.outerHTML;
 				}));
 
-				wiktionary.push([awords, anum, aforms, apos, awiki, row]);
+				wiktionary.push([awords, anum, aforms, apos, awiki, key, aaforms, row]);
 			}
 
 			const modified = response.headers.get("Last-Modified");
@@ -198,7 +227,9 @@ addEventListener("load", async (event) => {
 		console.timeLog(label);
 
 		wikt.replaceChildren(clone);
+	});
 
+	await Promise.all([promise1, promise2]).then(() => {
 		const end = performance.now();
 		const time = outputtime(end - start);
 		document.getElementById("load").textContent = time;
@@ -221,6 +252,8 @@ for (const radio of awords) {
 }
 
 awiki.addEventListener("change", settings);
+anormalize.addEventListener("change", settings);
+aforms.addEventListener("change", settings);
 asort.addEventListener("change", settings);
 adirection.addEventListener("change", settings);
 amax.addEventListener("change", settings);
