@@ -12,7 +12,7 @@ if [[ $# -ne 0 ]]; then
 fi
 
 # wget arguments
-args=( -nv -T 30 --retry-connrefused --retry-on-host-error -c --content-disposition --compression auto )
+args=(-nv -T 30 --retry-connrefused --retry-on-host-error -c --content-disposition --compression auto)
 
 # headtail <file>
 headtail() {
@@ -21,12 +21,11 @@ headtail() {
 	tail "$1"
 }
 
-
 TEMP=temp.txt
 
 wget "${args[@]}" https://hg.mozilla.org/mozilla-central/raw-file/tip/extensions/spellcheck/locales/en-US/hunspell/en-US.{aff,dic}
 
-unmunch en-US.dic en-US.aff > "$TEMP"
+unmunch en-US.dic en-US.aff >"$TEMP"
 
 # Convert to UTF-8
 iconv -f ISO-8859-1 -t UTF-8 -o mozilla.txt "$TEMP"
@@ -34,35 +33,35 @@ iconv -f ISO-8859-1 -t UTF-8 -o mozilla.txt "$TEMP"
 rm "$TEMP"
 
 (
-set -e
+	set -e
 
-DIR=wiktionary
-FILE=kaikki.org-dictionary-English.json
-TEMP=wiktionary.tsv
-OUTPUT='Wiktionary words.tsv'
+	DIR=wiktionary
+	FILE=kaikki.org-dictionary-English.json
+	TEMP=wiktionary.tsv
+	OUTPUT='Wiktionary words.tsv'
 
-echo -e "\nWiktionary\n"
+	echo -e "\nWiktionary\n"
 
-cd "$DIR"
-echo -e "\n\tDownloading “${FILE}”\n"
-wget "${args[@]}" "https://kaikki.org/dictionary/English/$FILE"
+	cd "$DIR"
+	echo -e "\n\tDownloading “${FILE}”\n"
+	wget "${args[@]}" "https://kaikki.org/dictionary/English/$FILE"
 
-headtail "$FILE"
+	headtail "$FILE"
 
-echo -e "\n\tGenerating data “$TEMP”\n"
-python3 -X dev update.py "$FILE" "$TEMP"
+	echo -e "\n\tGenerating data “$TEMP”\n"
+	python3 -X dev update.py "$FILE" "$TEMP"
 
-headtail "$TEMP"
+	headtail "$TEMP"
 
-join -t $'\t' <(comm -13 <(tr -cd '[:alnum:]\n' < ../mozilla.txt | tr '[:upper:]' '[:lower:]' | sort -u) <(cut -f 1 "$TEMP" | sort)) <(sort -t $'\t' -k 1,1 "$TEMP") | sort -t $'\t' -k 3,3nr > "$OUTPUT"
+	join -t $'\t' <(comm -13 <(tr -cd '[:alnum:]\n' <../mozilla.txt | tr '[:upper:]' '[:lower:]' | sort -u) <(cut -f 1 "$TEMP" | sort)) <(sort -t $'\t' -k 1,1 "$TEMP") | sort -t $'\t' -k 3,3nr >"$OUTPUT"
 
-sort -t $'\t' -k 3,3nr -o "$TEMP" "$TEMP"
+	sort -t $'\t' -k 3,3nr -o "$TEMP" "$TEMP"
 )
 
 (
-shopt -s globstar
-echo "Dictionary data:"
-wc -l -- **/*.tsv
-echo
-du -bch -- **/*.tsv
+	shopt -s globstar
+	echo "Dictionary data:"
+	wc -l -- **/*.tsv
+	echo
+	du -bch -- **/*.tsv
 )
