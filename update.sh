@@ -34,6 +34,7 @@ rm "$TEMP"
 
 (
 	set -e
+	trap 'echo "::error::Wiktionary failed to update"' ERR
 
 	DIR=wiktionary
 	FILE=kaikki.org-dictionary-English.json

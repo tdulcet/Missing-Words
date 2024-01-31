@@ -29,6 +29,5 @@ jobs:
         if git diff --quiet; then
             exit 0
         fi
-        git add mozilla.txt wiktionary/*.tsv
         git commit -am "Updated dictionary data $(date -u +%F)."
         git push

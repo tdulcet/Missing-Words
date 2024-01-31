@@ -155,7 +155,7 @@ end = time.perf_counter()
 print(f"Total number of Keys: {len(awords):n}, Total number of Words: {sum(len(word) for word in words.values()):n}, Runtime: {timedelta(seconds=end - start)}")
 
 with open(sys.argv[2], "w", newline="", encoding="utf-8") as csvfile:
-	writer = csv.writer(csvfile, delimiter="\t", lineterminator="\n", quotechar="", quoting=csv.QUOTE_NONE)
+	writer = csv.writer(csvfile, delimiter="\t", lineterminator="\n", quotechar=None, quoting=csv.QUOTE_NONE)
 	# writer.writerow(["key", "word(s)", "senses", "form(s)", "part(s) of speech", "Wikipedia page(s)"])
 	for aword in sorted(awords):
 		writer.writerow([aword, output(sorted(words[aword])), senses[aword], output(sorted(forms[aword])) if forms[aword] else "", output(sorted(poss[aword])), output(sorted(wikis[aword])) if aword in wikis else ""])
