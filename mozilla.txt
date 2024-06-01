@@ -27350,6 +27350,7 @@ abdomen
 abdomens
 abdomen's
 abdominal
+abdominally
 abduct
 abducting
 abducted
@@ -27409,6 +27410,7 @@ abject
 abjectly
 abjectness
 abjection
+abjections
 abjection's
 abjectness
 abjectness's
@@ -27440,6 +27442,7 @@ ablaze
 able
 ablest
 unable
+ableism
 abler
 abloom
 ablution
@@ -27464,7 +27467,13 @@ abode's
 abolish
 abolishing
 abolished
+abolisher
+abolishers
 abolishes
+abolishment
+abolishment
+abolishments
+abolishment's
 abolition
 abolition's
 abolitionism
@@ -27901,6 +27910,8 @@ accomplice's
 accomplish
 accomplishing
 accomplished
+accomplisher
+accomplishers
 accomplishes
 accomplishment
 accomplished
@@ -28397,6 +28408,10 @@ adapter
 adapter's
 adaption
 adaptions
+adaptive
+adaptively
+adaptiveness
+adaptivity
 add-on
 add-ons
 add
@@ -29291,6 +29306,11 @@ aggregation's
 aggregator
 aggregators
 aggregator's
+aggress
+aggressive
+aggressing
+aggressed
+aggresses
 aggression
 aggression's
 aggressive
@@ -39131,6 +39151,7 @@ breathers
 breathes
 breath's
 breathable
+breathability
 breathalyze
 breathalyzing
 breathalyzed
@@ -41678,6 +41699,7 @@ captaincy
 captaincies
 captaincy's
 captcha
+captchas
 caption
 captioning
 captioned
@@ -44260,6 +44282,9 @@ cholera's
 choleric
 cholesterol
 cholesterol's
+cholla
+chollas
+cholla's
 chomp
 chomping
 chomped
@@ -44337,6 +44362,9 @@ choreography's
 chorister
 choristers
 chorister's
+chorizo
+chorizos
+chorizo's
 choroid
 choroids
 choroid's
@@ -52876,6 +52904,8 @@ debarkation
 debarkation's
 debarment
 debarment's
+debatable
+undebatable
 debate
 debater
 debaters
@@ -52973,6 +53003,7 @@ decapitates
 decapitator
 decapitators
 decapitator's
+decarboxylation
 decathlete
 decathletes
 decathlon
@@ -54228,6 +54259,9 @@ desalinated
 desalinates
 desalination
 desalination's
+desalinator
+desalinators
+desalinator's
 desalinization
 desalinization's
 desalinize
@@ -71831,6 +71865,9 @@ hes
 ha
 hath
 has
+habanero
+habaneros
+habanero's
 habeas
 haberdasher
 haberdashers
@@ -72029,6 +72066,7 @@ hairspring
 hairsprings
 hairspring's
 hairstyle
+hairstyling
 hairstyles
 hairstyle's
 hairstylist
@@ -76024,6 +76062,7 @@ hypothesized
 hypothesizes
 hypothetical
 hypothetically
+hypotheticals
 hypothyroid
 hypothyroid's
 hypothyroidism
@@ -81670,9 +81709,11 @@ kiwifruit
 kiwifruits
 kiwifruit's
 kl
+klansmen
 klaxon
 klaxons
 kleptocracy
+kleptocracies
 kleptomania
 kleptomania's
 kleptomaniac
@@ -82128,6 +82169,7 @@ laggard's
 lagged
 lagging
 lagging's
+laggy
 lagniappe
 lagniappes
 lagniappe's
@@ -119419,6 +119461,7 @@ specializes
 specialty
 specialties
 specialty's
+speciation
 specie
 species
 specie's
@@ -131063,6 +131106,7 @@ unctuousness's
 uncut
 undaunted
 undauntedly
+undebatably
 undecided
 undecideds
 undecided's
