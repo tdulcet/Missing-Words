@@ -89,7 +89,7 @@ function settings() {
 			test = (awords) => awords.some((word) => re2.test(word)) && awords.some((word) => re4.test(word));
 			break;
 		case 4:
-			test = (awords) => true;
+			test = (_awords) => true;
 			break;
 	}
 
@@ -126,7 +126,7 @@ function createlink(link) {
 	return a;
 }
 
-addEventListener("load", async (event) => {
+addEventListener("load", async (/* event */) => {
 	const wikt = document.getElementById("wiktionary");
 
 	wikt.textContent = "Loading…";
@@ -205,7 +205,7 @@ addEventListener("load", async (event) => {
 				cell.textContent = formatter2.format(apos);
 
 				cell = row.insertCell();
-				const awiki = wiki.split(/("[^"]+"|[^",]*)(?:,|$)/u).filter((x, i) => i % 2 !== 0).map((x) => x.startsWith('"') && x.endsWith('"') ? x.slice(1, -1) : x);
+				const awiki = wiki.split(/("[^"]+"|[^",]*)(?:,|$)/u).filter((_x, i) => i % 2 !== 0).map((x) => x.startsWith('"') && x.endsWith('"') ? x.slice(1, -1) : x);
 				cell.innerHTML = formatter1.format(awiki.map((x) => {
 					const link = createlink(`${WIKIPEDIA}${x}`);
 					link.textContent = x;

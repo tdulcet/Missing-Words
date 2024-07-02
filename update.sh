@@ -37,7 +37,7 @@ rm "$TEMP"
 	trap 'echo "::error::Wiktionary failed to update"' ERR
 
 	DIR=wiktionary
-	FILE=kaikki.org-dictionary-English.json
+	FILE=kaikki.org-dictionary-English.jsonl
 	TEMP=wiktionary.tsv
 	OUTPUT='Wiktionary words.tsv'
 

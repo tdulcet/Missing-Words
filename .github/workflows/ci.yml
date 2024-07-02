@@ -17,15 +17,15 @@ jobs:
     - uses: actions/checkout@v4
     - name: Install
       run: |
-        sudo apt-get -yqq update
-        sudo apt-get -yqq install hunspell-tools
+        sudo apt-get update -y
+        sudo apt-get install -y hunspell-tools
     - name: Script
       run: |
         export LC_ALL=en_US.UTF-8
         bash update.sh
         git config --global user.email "$USER_EMAIL"
         git config --global user.name "$USER_NAME"
-        git config --global http.postBuffer $((2 * 1024 ** 3))
+        git config --global http.postBuffer $((2 << 30))
         if git diff --quiet; then
             exit 0
         fi

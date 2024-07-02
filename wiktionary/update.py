@@ -32,8 +32,22 @@ if len(sys.argv) != 3:
 	sys.exit(1)
 
 # Allowed Parts of speech
-parts_of_speech = frozenset(["noun", "verb", "adj", "adv", "prep_phrase",
-							 "abbrev", "pron", "prep", "num", "conj", "det", "particle", "postp", "intj"])
+parts_of_speech = frozenset([
+	"noun",
+	"verb",
+	"adj",
+	"adv",
+	"prep_phrase",
+	"abbrev",
+	"pron",
+	"prep",
+	"num",
+	"conj",
+	"det",
+	"particle",
+	"postp",
+	"intj",
+])
 
 # Allowed words and forms
 # pattern = re.compile(r"^[\w'-]+$")
@@ -106,8 +120,27 @@ with open(sys.argv[1], encoding="utf-8") as f:
 				sense_tags.update(sense["tags"])
 
 		# US, UK, Scotland, Britain, Australia, Canada, India, New-Zealand, Ireland, Northern-England, South-Africa, Philippines, British, Singapore, English, Southern-US, Jamaica, Malaysia, Greek, Africa, South-Asia, Hawaii, Nigeria, England, Pakistan, Appalachia, Hong-Kong, Roman, Commonwealth, Northern-Ireland, New-England, Japanese, Trinidad-and-Tobago, Canadian, Wales, Indonesia, Australian
-		if all("tags" in s and (not {"obsolete", "archaic", "misspelling", "nonstandard"}.isdisjoint(s["tags"]) or (
-				not {"UK", "Britain", "British", "Commonwealth", "England", "Australia", "Australian", "Canada", "Canadian"}.isdisjoint(s["tags"]) and "US" not in s["tags"])) for s in asenses):
+		if all(
+			"tags" in s
+			and (
+				not {"obsolete", "archaic", "misspelling", "nonstandard"}.isdisjoint(s["tags"])
+				or (
+					not {
+						"UK",
+						"Britain",
+						"British",
+						"Commonwealth",
+						"England",
+						"Australia",
+						"Australian",
+						"Canada",
+						"Canadian",
+					}.isdisjoint(s["tags"])
+					and "US" not in s["tags"]
+				)
+			)
+			for s in asenses
+		):
 			# print(f"Skiping: {word}, {pos}")
 			continue
 
@@ -137,8 +170,17 @@ with open(sys.argv[1], encoding="utf-8") as f:
 				if form != temp:
 					print(f"Error: {form!r}", aform)
 					form = temp
-				if ("tags" not in aform or {"inflection-template", "table-tags", "class", "British", "Canada",
-											"Australian"}.isdisjoint(aform["tags"])) and form and form != "-" and pattern.match(form):
+				if (
+					(
+						"tags" not in aform
+						or {"inflection-template", "table-tags", "class", "British", "Canada", "Australian"}.isdisjoint(
+							aform["tags"]
+						)
+					)
+					and form
+					and form != "-"
+					and pattern.match(form)
+				):
 					# aaform = apattern.sub('', form).lower()
 					# if aaform not in awords:
 						# poss[aaform] = set()
@@ -152,13 +194,22 @@ with open(sys.argv[1], encoding="utf-8") as f:
 					forms[aword].add(form)
 
 end = time.perf_counter()
-print(f"Total number of Keys: {len(awords):n}, Total number of Words: {sum(len(word) for word in words.values()):n}, Runtime: {timedelta(seconds=end - start)}")
+print(
+	f"Total number of Keys: {len(awords):n}, Total number of Words: {sum(len(word) for word in words.values()):n}, Runtime: {timedelta(seconds=end - start)}"
+)
 
 with open(sys.argv[2], "w", newline="", encoding="utf-8") as csvfile:
 	writer = csv.writer(csvfile, delimiter="\t", lineterminator="\n", quotechar=None, quoting=csv.QUOTE_NONE)
 	# writer.writerow(["key", "word(s)", "senses", "form(s)", "part(s) of speech", "Wikipedia page(s)"])
 	for aword in sorted(awords):
-		writer.writerow([aword, output(sorted(words[aword])), senses[aword], output(sorted(forms[aword])) if forms[aword] else "", output(sorted(poss[aword])), output(sorted(wikis[aword])) if aword in wikis else ""])
+		writer.writerow([
+			aword,
+			output(sorted(words[aword])),
+			senses[aword],
+			output(sorted(forms[aword])) if forms[aword] else "",
+			output(sorted(poss[aword])),
+			output(sorted(wikis[aword])) if aword in wikis else "",
+		])
 
 print("\nCounts\n")
 print("Keys:", len(keys))
