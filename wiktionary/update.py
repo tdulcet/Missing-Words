@@ -32,7 +32,7 @@ if len(sys.argv) != 3:
 	sys.exit(1)
 
 # Allowed Parts of speech
-parts_of_speech = frozenset([
+parts_of_speech = frozenset((
 	"noun",
 	"verb",
 	"adj",
@@ -47,7 +47,7 @@ parts_of_speech = frozenset([
 	"particle",
 	"postp",
 	"intj",
-])
+))
 
 # Allowed words and forms
 # pattern = re.compile(r"^[\w'-]+$")
@@ -56,10 +56,10 @@ apattern = re.compile(r"[\W_]+")
 
 
 def output(temp):
-	aoutput = io.StringIO()
-	writer = csv.writer(aoutput)
-	writer.writerow(temp)
-	return aoutput.getvalue().rstrip()
+	with io.StringIO() as aoutput:
+		writer = csv.writer(aoutput)
+		writer.writerow(temp)
+		return aoutput.getvalue().rstrip("\n")
 
 
 n = 10
@@ -85,7 +85,7 @@ form_sources = Counter()
 
 start = time.perf_counter()
 
-with open(sys.argv[1], encoding="utf-8") as f:
+with open(sys.argv[1], "rb") as f:
 	for line in f:
 		data = json.loads(line)
 
@@ -183,13 +183,13 @@ with open(sys.argv[1], encoding="utf-8") as f:
 				):
 					# aaform = apattern.sub('', form).lower()
 					# if aaform not in awords:
-						# poss[aaform] = set()
-						# wikis[aaform] = set()
+					# 	poss[aaform] = set()
+					# 	wikis[aaform] = set()
 					# awords.add(aaform)
 					# words[aaform].add(form)
 					# poss[aaform].add(pos)
 					# if "wikipedia" in data:
-						# wikis[aaform].update(data["wikipedia"])
+					# 	wikis[aaform].update(data["wikipedia"])
 
 					forms[aword].add(form)
 
