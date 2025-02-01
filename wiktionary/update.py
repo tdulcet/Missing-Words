@@ -13,8 +13,8 @@
 # # Convert 'mozilla.txt' to UTF-8
 # iconv -f ISO-8859-1 -t UTF-8 -o mozilla.txt temp.txt
 
-# wget --compression auto https://kaikki.org/dictionary/English/kaikki.org-dictionary-English.json
-# time python3 -X dev update.py kaikki.org-dictionary-English.json wiktionary.tsv
+# wget --compression auto https://kaikki.org/dictionary/English/kaikki.org-dictionary-English.jsonl
+# time python3 -X dev update.py kaikki.org-dictionary-English.jsonl wiktionary.tsv
 
 # join -t $'\t' <(comm -13 <(tr -cd '[:alnum:]\n' < mozilla.txt | tr '[:upper:]' '[:lower:]' | sort -u) <(cut -f 1 wiktionary.tsv | sort)) <(sort -t $'\t' -k 1,1 wiktionary.tsv) | sort -t $'\t' -k 3,3nr > 'Wiktionary words.tsv'
 
@@ -59,7 +59,7 @@ def output(temp):
 	with io.StringIO() as aoutput:
 		writer = csv.writer(aoutput)
 		writer.writerow(temp)
-		return aoutput.getvalue().rstrip("\n")
+		return aoutput.getvalue().rstrip("\r\n")
 
 
 n = 10
@@ -96,16 +96,16 @@ with open(sys.argv[1], "rb") as f:
 		pos = data["pos"]
 		asenses = data["senses"]
 
-		part.update([pos])
+		part.update((pos,))
 
-		langs.update([(data["lang_code"], data["lang"])])
+		langs.update(((data["lang_code"], data["lang"]),))
 
 		if "source" in data:
-			sources.update([data["source"]])
+			sources.update((data["source"],))
 
 		if "categories" in data:
 			for category in data["categories"]:
-				categories.update([category["name"]])
+				categories.update((category["name"],))
 				parents.update(category["parents"])
 
 		if not pattern.match(word) or not pattern.match(aword):
@@ -163,7 +163,7 @@ with open(sys.argv[1], "rb") as f:
 				if "tags" in aform:
 					form_tags.update(aform["tags"])
 				if "source" in aform:
-					form_sources.update([aform["source"]])
+					form_sources.update((aform["source"],))
 
 				form = aform["form"]
 				temp = form.strip()
@@ -200,16 +200,16 @@ print(
 
 with open(sys.argv[2], "w", newline="", encoding="utf-8") as csvfile:
 	writer = csv.writer(csvfile, delimiter="\t", lineterminator="\n", quotechar=None, quoting=csv.QUOTE_NONE)
-	# writer.writerow(["key", "word(s)", "senses", "form(s)", "part(s) of speech", "Wikipedia page(s)"])
+	# writer.writerow(("key", "word(s)", "senses", "form(s)", "part(s) of speech", "Wikipedia page(s)"))
 	for aword in sorted(awords):
-		writer.writerow([
+		writer.writerow((
 			aword,
 			output(sorted(words[aword])),
 			senses[aword],
 			output(sorted(forms[aword])) if forms[aword] else "",
 			output(sorted(poss[aword])),
 			output(sorted(wikis[aword])) if aword in wikis else "",
-		])
+		))
 
 print("\nCounts\n")
 print("Keys:", len(keys))
