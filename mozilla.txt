@@ -36764,6 +36764,9 @@ biologist's
 biology
 biologies
 biology's
+bioluminescence
+bioluminescences
+bioluminescent
 biomarker
 biomarkers
 biomarker's
@@ -38312,6 +38315,8 @@ bookmarking
 bookmarked
 bookmarks
 bookmark's
+bookmarklet
+bookmarklets
 bookmobile
 bookmobiles
 bookmobile's
@@ -42503,6 +42508,8 @@ categorizes
 category
 categories
 category's
+catenary
+catenaries
 cater
 catering
 caterings
@@ -49295,6 +49302,7 @@ copter's
 copula
 copulas
 copula's
+copular
 copulate
 copulative
 copulation
@@ -51130,6 +51138,7 @@ crofts
 croissant
 croissants
 croissant's
+cromulent
 crone
 crones
 crone's
@@ -53839,6 +53848,8 @@ demoniacal
 demoniacally
 demonic
 demonically
+demonization
+demonizations
 demonize
 demonizing
 demonized
@@ -56761,6 +56772,8 @@ doolally
 doom
 dooming
 doomed
+doomer
+doomers
 dooms
 doom's
 doomsayer
@@ -70975,6 +70988,12 @@ griffin's
 griffon
 griffons
 griffon's
+grift
+grifting
+grifted
+grifter
+grifters
+grifts
 grill
 grilling
 grillings
@@ -76207,6 +76226,8 @@ idealize
 idealizing
 idealized
 idealizes
+ideation
+ideations
 idem
 idempotent
 identical
@@ -81714,6 +81735,8 @@ klaxon
 klaxons
 kleptocracy
 kleptocracies
+kleptocrat
+kleptocrats
 kleptomania
 kleptomania's
 kleptomaniac
@@ -92420,6 +92443,10 @@ neuron
 neurons
 neuron's
 neuronal
+neuropathic
+neuropathically
+neuropathy
+neuropathies
 neurophysiology's
 neuroscience
 neurosciences
@@ -95625,6 +95652,7 @@ ounces
 ounce's
 our
 ours
+ourself
 ourselves
 oust
 ousting
@@ -96477,6 +96505,10 @@ overruns
 overrun's
 overrunning
 oversampling
+oversaturate
+oversaturation
+oversaturated
+oversaturates
 oversaw
 oversea
 overseas
@@ -101100,6 +101132,8 @@ platen's
 platform
 platforming
 platformed
+platformer
+platformers
 platforms
 platform's
 plating
@@ -108835,6 +108869,7 @@ renews
 renewable
 renewable
 renewables
+renewably
 renewal
 renewals
 renewal's
@@ -110660,6 +110695,12 @@ romances
 romance's
 romancer
 romancer's
+romanization
+romanizations
+romanize
+romanizing
+romanized
+romanizes
 romantic
 romantics
 romantic's
