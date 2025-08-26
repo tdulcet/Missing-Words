@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Teal Dulcet
+# Copyright © Teal Dulcet
 # Update dictionary data
 # ./update.sh
 

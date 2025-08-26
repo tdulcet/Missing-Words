@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Teal Dulcet
+# Copyright © Teal Dulcet
 
 # Run: python3 update.py <input JSON file> <output TSV file>
 
