@@ -33497,6 +33497,8 @@ authenticated
 unauthenticated
 authentication
 authentication's
+authenticator
+authenticators
 authenticity
 authenticity's
 author
@@ -44415,6 +44417,7 @@ christening's
 christian
 unchristian
 christology
+chroma
 chromatic
 chromatically
 chromatin
@@ -44425,6 +44428,7 @@ chroming
 chromed
 chromes
 chrome's
+chrominance
 chromium
 chromium's
 chromosomal
@@ -47636,6 +47640,7 @@ concludes
 conclusion
 conclusions
 conclusion's
+conclusionary
 conclusive
 conclusively
 conclusiveness
@@ -49116,6 +49121,10 @@ convolution
 convolutions
 convolution's
 convolutional
+convolve
+convolving
+convolved
+convolves
 convoy
 convoying
 convoyed
@@ -50084,6 +50093,7 @@ counterrevolution's
 counterrevolutionary
 counterrevolutionaries
 counterrevolutionary's
+countershading
 countersign
 countersigning
 countersigned
@@ -53558,6 +53568,11 @@ defying
 defied
 defies
 deg
+degauss
+degaussed
+degausser
+degaussers
+degausses
 degeneracy
 degeneracy's
 degenerate
@@ -62644,6 +62659,7 @@ external
 externally
 externals
 external's
+externality
 externalization
 externalizations
 externalization's
@@ -62882,6 +62898,8 @@ eyetooth
 eyetooth's
 eyewash
 eyewash's
+eyewear
+eyewear's
 eyewitness
 eyewitnesses
 eyewitness's
@@ -62946,6 +62964,8 @@ facepalm
 facepalming
 facepalmed
 facepalms
+faceplate
+faceplates
 facet
 faceting
 faceted
@@ -65766,6 +65786,7 @@ fluidity
 fluidity's
 fluidize
 fluidizing
+fluidized
 fluidizes
 fluke
 flukes
@@ -67331,6 +67352,8 @@ frictional
 fridge
 fridges
 fridge's
+fried
+refried
 friedcake
 friedcakes
 friedcake's
@@ -67798,6 +67821,10 @@ functionalist
 functionalists
 functionality
 functionalities
+functionalize
+functionalizing
+functionalized
+functionalizes
 functionary
 functionaries
 functionary's
@@ -70186,6 +70213,7 @@ googles
 google's
 googly
 googlies
+googol
 gooier
 gooiest
 gook
@@ -73168,6 +73196,8 @@ headwaters
 headwaters's
 headway
 headway's
+headwear
+headwear's
 headwind
 headwinds
 headwind's
@@ -76226,8 +76256,12 @@ idealize
 idealizing
 idealized
 idealizes
+ideate
 ideation
 ideations
+ideating
+ideated
+ideates
 idem
 idempotent
 identical
@@ -77676,6 +77710,7 @@ indicative's
 indicator
 indicators
 indicator's
+indicia
 indict
 indicting
 indicted
@@ -82196,6 +82231,8 @@ laggy
 lagniappe
 lagniappes
 lagniappe's
+lagomorph
+lagomorphs
 lagoon
 lagoons
 lagoon's
@@ -82986,11 +83023,15 @@ league's
 leak
 leaking
 leaked
+leaker
+leakers
 leaks
 leak's
 leakage
 leakages
 leakage's
+leaker
+leaker's
 leakiness
 leakiness's
 leaky
@@ -83994,6 +84035,9 @@ limestone
 limestone's
 limey
 limeys
+liminal
+liminality
+liminalities
 limit's
 limit
 limiting
@@ -85363,6 +85407,7 @@ lumberyard's
 lumen
 lumens
 lumina
+luminance
 luminary
 luminaries
 luminary's
@@ -87755,6 +87800,7 @@ meme's
 memento
 mementos
 memento's
+memetic
 memo
 memos
 memo's
@@ -89271,6 +89317,7 @@ misfits
 misfit's
 misfitted
 misfitting
+misformed
 misfortune
 misfortunes
 misfortune's
@@ -92432,6 +92479,11 @@ neuritis
 neuritis's
 neurocysticercoses
 neurocysticercosis
+neurodivergent
+neurodiverse
+neurodiversity
+neurodiversities
+neurodiversity's
 neurological
 neurologically
 neurologist
@@ -93035,6 +93087,7 @@ nominee
 nominees
 nominee's
 non
+non-sequiturs
 nonabrasive
 nonabsorbent
 nonabsorbents
@@ -96253,6 +96306,10 @@ overemphasize
 overemphasizing
 overemphasized
 overemphasizes
+overengineer
+overengineering
+overengineered
+overengineers
 overenthusiastic
 overestimate
 overestimation
@@ -96309,6 +96366,7 @@ overflying
 overflies
 overfond
 overfull
+overgeneralization
 overgeneralize
 overgeneralizing
 overgeneralized
@@ -97688,6 +97746,7 @@ pare
 pares
 paregoric
 paregoric's
+pareidolia
 parent
 parenting
 parented
@@ -98438,6 +98497,7 @@ payslip
 payslips
 payslip's
 paywall
+paywalled
 paywalls
 paywall's
 payware
@@ -101129,13 +101189,17 @@ platelets
 platelet's
 platen
 platen's
+platform's
 platform
 platforming
 platformed
+platforms
+deplatforming
+deplatformed
+deplatforms
+deplatform
 platformer
 platformers
-platforms
-platform's
 plating
 plating's
 platinum
@@ -103612,6 +103676,7 @@ prescriptively
 preseason
 preseasons
 preseason's
+preselected
 presence
 presences
 presence's
@@ -111329,6 +111394,7 @@ runic
 runlet
 runlets
 runlet's
+runnable
 runnel
 runnels
 runnel's
@@ -112939,6 +113005,9 @@ scissor
 scissoring
 scissored
 scissors
+sclera
+scleras
+sclera's
 scleroses
 sclerosis
 sclerosis's
@@ -114518,6 +114587,7 @@ sequins
 sequin's
 sequinned
 sequitur
+sequiturs
 sequoia
 sequoias
 sequoia's
@@ -125009,6 +125079,7 @@ tad's
 tadpole
 tadpoles
 tadpole's
+taekwondo
 taffeta
 taffeta's
 taffrail
@@ -131758,6 +131829,7 @@ unobservant
 unoffensive
 unofficial
 unofficially
+unopenable
 unoriginal
 unpeople
 unperceptive
@@ -132136,6 +132208,7 @@ urbane
 urbanely
 urbanest
 urbaner
+urbanism
 urbanity
 urbanity's
 urbanization
