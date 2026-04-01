@@ -8,7 +8,7 @@
 # sudo apt update
 # sudo apt install hunspell-tools
 
-# wget --compression auto https://hg.mozilla.org/mozilla-central/raw-file/tip/extensions/spellcheck/locales/en-US/hunspell/en-US.{aff,dic}
+# wget --compression auto https://hg.mozilla.org/mozilla-central/raw-file/default/extensions/spellcheck/locales/en-US/hunspell/en-US.{aff,dic}
 # unmunch en-US.dic en-US.aff > temp.txt
 # # Convert 'mozilla.txt' to UTF-8
 # iconv -f ISO-8859-1 -t UTF-8 -o mozilla.txt temp.txt

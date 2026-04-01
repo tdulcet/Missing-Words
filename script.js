@@ -151,6 +151,8 @@ addEventListener("load", async (/* event */) => {
 
 			mozilla = new Set(data);
 			amozilla = new Set(data.map((r) => r.replaceAll(apattern, "").toLowerCase()));
+		} else {
+			throw new Error(`HTTP status code ${response.status}`);
 		}
 	});
 
@@ -222,6 +224,8 @@ addEventListener("load", async (/* event */) => {
 				amodified.title = dateTimeFormat1.format(date);
 				amodified.textContent = dateTimeFormat2.format(date);
 			}
+		} else {
+			throw new Error(`HTTP status code ${response.status}`);
 		}
 
 		console.timeLog(label);

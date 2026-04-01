@@ -23,7 +23,7 @@ headtail() {
 
 TEMP=temp.txt
 
-wget "${args[@]}" https://hg.mozilla.org/mozilla-central/raw-file/tip/extensions/spellcheck/locales/en-US/hunspell/en-US.{aff,dic}
+wget "${args[@]}" https://hg.mozilla.org/mozilla-central/raw-file/default/extensions/spellcheck/locales/en-US/hunspell/en-US.{aff,dic}
 
 unmunch en-US.dic en-US.aff >"$TEMP"
 
